@@ -1,14 +1,16 @@
 
+import copy
 from collections import defaultdict
 
 
-def SDGroup(G, D, qg, bd):
+def SDGroup(Gprime, D, qg, bd):
+    G = copy.deepcopy(Gprime)
     n = len(G) - 1
     matching = defaultdict(list)
     i = 1
     refuge = []
     c = True
-    while i < n+1:
+    for i in G.keys():
         if G[i] != []:
             currpref = G[i]
             c = False
@@ -32,12 +34,13 @@ def SDGroup(G, D, qg, bd):
 
 
 if __name__ == '__main__':
-    groups = [None]*(4+1)
-    groups[1] = [2, 1]  # preference list
-    groups[2] = [2, 1]
-    groups[3] = [1]
-    groups[4] = [1, 2]
-    qg = [None, 2, 1, 2, 1]
-    bd = [None, 2, 2]
-    D = 2
+    groups = {}
+    groups[1] = [1, 2, 3, 4]  # preference list
+    groups[2] = [1]
+    groups[3] = [1, 2, 3, 4]
+    groups[4] = [1, 2, 3, 4]
+    groups[5] = [1, 2, 3, 4]
+    qg = [None, 1, 2, 1, 1, 1]
+    bd = [None, 2, 1, 1, 1]
+    D = 4
     print(SDGroup(groups, D, qg, bd))
