@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import random
 from QSO import QSO
 from tqdm import tqdm  # progress bar
@@ -50,6 +51,8 @@ for itr in tqdm(range(1, 103+1)):
     groups.clear()
     merit.clear()
     # print generated data
+qso_frequency = dict(sorted(qso_frequency.items()))
+refuge_frequency = dict(sorted(refuge_frequency.items()))
 print(qso_frequency)
 print(refuge_frequency)
 # save generated data to file
@@ -61,3 +64,21 @@ with open('refuge_frequency.txt', 'w') as f:
     for key, value in refuge_frequency.items():
         f.write("%s %s" % (key, value))
         f.write("\n")
+
+# plot qso frequency
+plt.bar(qso_frequency.keys(), qso_frequency.values(), color='g')
+plt.xlabel('Number of Iterations')
+plt.ylabel('Frequency')
+plt.title('QSO Frequency')
+plt.show()
+# save qso frequency plot
+plt.savefig('qso_frequency.png')
+
+# plot refuge frequency
+plt.bar(refuge_frequency.keys(), refuge_frequency.values(), color='b')
+plt.xlabel('Number of Iterations')
+plt.ylabel('Frequency')
+plt.title('Refuge Frequency')
+plt.show()
+# save refuge frequency plot
+plt.savefig('refuge_frequency.png')
