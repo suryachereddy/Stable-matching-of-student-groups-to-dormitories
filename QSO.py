@@ -34,7 +34,11 @@ def QSO(G, D, merit, qg, bd):
             new_mu = copy.deepcopy(mu_hat)
             new_R = copy.deepcopy(R_hat)
             new_W = copy.deepcopy(W_hat)
-            H.append((new_mu, new_W, new_R))
+            inter_inverted_mu = {
+                value: key for key in new_mu for value in new_mu[key]}
+            inverted_mu = [(value, inter_inverted_mu[value])
+                           for value in inter_inverted_mu]
+            H.append((inverted_mu, new_W, new_R))
 
             h += 1
         if W_hat != {}:

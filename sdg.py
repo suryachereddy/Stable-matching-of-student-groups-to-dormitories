@@ -43,4 +43,10 @@ if __name__ == '__main__':
     qg = [None, 1, 2, 1, 1, 1]
     bd = [None, 2, 1, 1, 1]
     D = 4
-    print(SDGroup(groups, D, qg, bd))
+    matching, refuge = SDGroup(groups, D, qg, bd)
+    # invert matching
+    inter_inverted_matching = {
+        value: key for key in matching for value in matching[key]}
+    inverted_matching = [(value, inter_inverted_matching[value])
+                         for value in inter_inverted_matching]
+    print(f"matching: {inverted_matching} and refuge: {refuge}")
