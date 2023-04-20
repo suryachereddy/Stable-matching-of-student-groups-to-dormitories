@@ -1,8 +1,9 @@
 from collections import defaultdict
 from sdg import SDGroup
+import copy
 
 
-def QSO(G, D, merit, qs, bd):
+def QSO(G, D, merit, qg, bd):
     def m(G, merit):
         new_merit = {}
         for key, value in G.items():
@@ -18,7 +19,7 @@ def QSO(G, D, merit, qs, bd):
     H = []
     h = 1
     itr = 1
-    while itr < len(G)+1:
+    while itr < len(qg):
         mu_hat = {}
         new_G = dict(sorted(new_G.items()))
         mu_hat, R_hat = SDGroup(new_G, D, qg, bd)
@@ -28,8 +29,13 @@ def QSO(G, D, merit, qs, bd):
         for key, value in mu_hat.items():
             for v in value:
                 total_other += qg[v]
-        if W_hat == {} or (total_beds - total_other < qg[idx]):
-            H += [(mu_hat, W_hat, R_hat)]
+
+        if W_hat == {} or (total_beds - total_other) < qg[idx]:
+            new_mu = copy.deepcopy(mu_hat)
+            new_R = copy.deepcopy(R_hat)
+            new_W = copy.deepcopy(W_hat)
+            H.append((new_mu, new_W, new_R))
+
             h += 1
         if W_hat != {}:
             W_hat.pop(idx)
@@ -56,5 +62,6 @@ if __name__ == '__main__':
         1: 1, 2: 5, 3: 4, 4: 3, 5: 2
     }
     sol = QSO(groups, D, merit, qg, bd)
+    print(len(sol))
     for i, x in enumerate(sol):
         print(f"h: {i+1} H: {x}")
