@@ -35,14 +35,13 @@ def SDGroup(Gprime, D, qg, bd):
 
 if __name__ == '__main__':
     groups = {}
-    groups[1] = [1, 2, 3, 4]  # preference list
-    groups[2] = [1]
-    groups[3] = [1, 2, 3, 4]
-    groups[4] = [1, 2, 3, 4]
-    groups[5] = [1, 2, 3, 4]
-    qg = [None, 1, 2, 1, 1, 1]
-    bd = [None, 2, 1, 1, 1]
-    D = 4
+    groups[1] = [2, 1]  # preference list
+    groups[2] = [2, 1]
+    groups[3] = [1]
+    groups[4] = [2, 1]
+    qg = [None, 2, 1, 2, 1]
+    bd = [None, 2, 2]
+    D = 2
     matching, refuge = SDGroup(groups, D, qg, bd)
     # invert matching
     inter_inverted_matching = {
