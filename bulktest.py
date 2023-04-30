@@ -70,15 +70,26 @@ plt.bar(qso_frequency.keys(), qso_frequency.values(), color='g')
 plt.xlabel('Number of Iterations')
 plt.ylabel('Frequency')
 plt.title('QSO Frequency')
-plt.show()
 # save qso frequency plot
 plt.savefig('qso_frequency.png')
+plt.show()
+
 
 # plot refuge frequency
 plt.bar(refuge_frequency.keys(), refuge_frequency.values(), color='b')
-plt.xlabel('Number of Iterations')
+plt.xlabel('Number of Refuge Groups')
 plt.ylabel('Frequency')
 plt.title('Refuge Frequency')
-plt.show()
 # save refuge frequency plot
 plt.savefig('refuge_frequency.png')
+plt.show()
+
+# save key and value to file
+with open('qso_frequency.txt', 'w') as f:
+    for key, value in qso_frequency.items():
+        f.write("%s %s" % (key, value))
+        f.write("\n")
+with open('refuge_frequency.txt', 'w') as f:
+    for key, value in refuge_frequency.items():
+        f.write("%s %s" % (key, value))
+        f.write("\n")
